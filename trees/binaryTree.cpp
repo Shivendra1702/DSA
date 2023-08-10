@@ -14,22 +14,20 @@ class Node{
     }
 };
 
-Node* buildTree(Node* &root){
+void buildTree(Node* &root){
    int data;
    cout<<"Enter The Data :";
    cin>>data;   
 
-   if(data == -1) return NULL;   
+   if(data == -1) return ;   
 
    root = new Node(data);
    
    cout<<"Enter Data for Inserting in left of "<<data<<endl;
-   root->left = buildTree(root->left);
+   buildTree(root->left);
    
    cout<<"Enter Data for Inserting in Right of "<<data<<endl;
-   root->right = buildTree(root->right);
-
-   return root;     
+   buildTree(root->right);
 }
 
 // tree traversal techniques - 
@@ -53,6 +51,7 @@ vector<vector<int>> levelOrderTraversal(Node* root){
        for(int i=0 ; i<size ; i++){
          Node* node = q.front();
          q.pop();
+         
          if(node->left != NULL) q.push(node->left);
          if(node->right != NULL) q.push(node->right);
 
@@ -60,7 +59,6 @@ vector<vector<int>> levelOrderTraversal(Node* root){
        }
        ans.push_back(level);
     }
-
     return ans;
 }
 
