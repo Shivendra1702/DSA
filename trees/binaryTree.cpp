@@ -39,8 +39,29 @@ Node* buildTree(Node* &root){
 
 // BFS(Breadth First Search) also known as (Level Order Traversal)
 
-void levelOrderTraversal(Node* root){
+vector<vector<int>> levelOrderTraversal(Node* root){
+    vector<vector<int>> ans;
+    if(root == NULL) return ans;
 
+    queue<Node*> q;
+    q.push(root);
+
+    while(!q.empty()){
+       vector<int> level;
+       int size = q.size();
+
+       for(int i=0 ; i<size ; i++){
+         Node* node = q.front();
+         q.pop();
+         if(node->left != NULL) q.push(node->left);
+         if(node->right != NULL) q.push(node->right);
+
+         level.push_back(node->data);
+       }
+       ans.push_back(level);
+    }
+
+    return ans;
 }
 
 
@@ -83,6 +104,15 @@ int main(){
     inorder(root);
     cout<<endl;
     postorder(root);
+    cout<<endl;
+
+    vector<vector<int>> ans = levelOrderTraversal(root);
+
+    for(auto vec : ans){
+       for(auto val: vec){
+         cout<<val<<" ";
+       }cout<<endl;
+    }
 
     return 0;
 }
