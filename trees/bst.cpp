@@ -15,15 +15,16 @@ class Node {
 };
 
 void insertIntoBST(Node* &root , int data){
-   if(root == NULL){
+  if(root == NULL){
      root = new Node(data);
      return;
-   }
+  }
 
-   if(root->data > data) 
-    insertIntoBST(root->left,data);   
-   else 
-    insertIntoBST(root->right,data); 
+   if(root->data > data) insertIntoBST(root->left,data);   
+
+   else insertIntoBST(root->right,data); 
+
+  return;
 }
 
 // void takeInput(Node* &root){
@@ -62,13 +63,99 @@ vector<vector<int>> levelOrderTraversal(Node* root){
     return ans;
 }
 
+int maxValue(Node* root){
+   Node* temp = root; 
+   if(root == NULL) return -1;   
+
+   while(temp->right != NULL)
+     temp = temp -> right;
+   
+   return temp->data;
+}
+
+
+int minValue(Node* root){  
+   Node* temp = root; 
+   if(root == NULL) return -1;
+
+   while(temp->left != NULL)
+     temp = temp -> left;
+   
+   return temp->data;
+}
+
+void deleteNode(Node* &root , int data){
+   if(root == NULL){
+     cout<<"Tree Empty !!"<<endl;
+     return ; 
+   }
+
+   if(root->data == data){
+      // 0 child
+      if(root->left == NULL && root->right == NULL){
+         delete root;
+         root = NULL;
+         return;
+      }
+
+      // 1 child
+        // left child
+        if(root->left != NULL && root->right==NULL){
+            Node* temp = root->left;
+            delete root;
+            root = temp;
+            return;
+        }
+        // right child
+        if(root->right != NULL && root->left==NULL){
+            Node* temp = root->right;
+            delete root;
+            root = temp;
+            return;
+        }
+
+      // 2 child
+      if(root->left != NULL && root->right != NULL){
+         int mini = minValue(root->right);
+         root->data = mini;
+         deleteNode(root->right , mini);
+         return;
+      }
+
+   }
+   else if(root->data > data){
+     deleteNode(root->left , data);
+   }
+   else{
+     deleteNode(root->right , data);
+   }
+}
+
+//inorder predecessor
+//inorder successor
+// void inorderSuccessor(Node* root , int data){
+//     int successor = NULL;
+
+//     while(root != NULL){
+//        if(root->data <= data){
+//          root = root->right;
+//        }
+//        else{
+//          successor = root->data;
+//          root = root->left;
+//        }
+//     }
+
+//     cout<<"Inorder Successor of "<<data<<" is "<<successor<<endl;
+// }                
+
 
 int main(){
     Node* root = NULL;
     
     while(1){
         int choice;
-        cout<<"Choose Operations :\n1 . Insertion\n2 . Display\n3 . Exit"<<endl;
+        cout<<"Choose Operations :\n1 . Insertion\n2 . Display\n3 . Max value\n4 . Min Value\n5 . Delete Node\n6 . Exit"<<endl;
         cout<<"Enter choice :";
         cin>>choice;
         switch(choice){
@@ -90,6 +177,29 @@ int main(){
                 break;
             }
             case 3:{
+                int ans = maxValue(root);
+                if(ans == -1)
+                 cout<<"Tree Empty !!"<<endl;
+                else
+                 cout<<"Max value is "<<ans<<endl;
+                break;
+            }
+            case 4:{
+                int ans = minValue(root);
+                if(ans == -1)
+                 cout<<"Tree Empty !!"<<endl;
+                else
+                 cout<<"Min value is "<<ans<<endl;
+                break;
+            }
+            case 5:{
+                int data;
+                cout<<"Enter Data for Node to be Deleted :";
+                cin>>data;
+                deleteNode(root , data);
+                break;
+            }
+            case 6:{
                 exit(1);
                 break;
             }

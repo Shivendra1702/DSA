@@ -28,6 +28,8 @@ void buildTree(Node* &root){
    
    cout<<"Enter Data for Inserting in Right of "<<data<<endl;
    buildTree(root->right);
+
+   return;
 }
 
 // tree traversal techniques - 
