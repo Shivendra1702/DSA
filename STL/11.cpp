@@ -167,20 +167,20 @@ int main(){
 
 
     //set stores unique elements in sorted order
-//     set<int> ms;
-//     ms.insert(10);
-//     ms.insert(2);
-//     ms.insert(3);   
-//     ms.insert(5);
-//     ms.insert(1);
+    set<int> ms;
+    ms.insert(10);
+    ms.insert(2);
+    ms.insert(3);   
+    ms.insert(5);
+    ms.insert(1);
 
 //     for(auto it = ms.begin() ; it!=ms.end() ; it++){
 //         cout<<*it<<" ";
 //     }
 
-//     for(auto val : ms){
-//         cout<<val<<" ";
-//     }
+    // for(auto val : ms){
+    //     cout<<val<<" ";
+    // }
 //     cout<<endl<<*ms.find(10)<<endl;
 //     cout<<ms.count(50)<<endl;
 

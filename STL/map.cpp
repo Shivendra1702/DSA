@@ -4,6 +4,11 @@ using namespace std;
 int main(){
 
     map<int,int> mp;
+    unordered_map<int,int> ump;
+
+    ump[1];
+    ump[1]=2;
+    cout<<ump.begin()->first<<" "<<ump.begin()->second;
 
     mp[1]=10;
     mp.insert({2,20});
