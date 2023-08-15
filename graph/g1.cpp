@@ -7,7 +7,7 @@ template <typename T>
 class graph{
 
   public:
-   unordered_map< T , list<T>> adj;
+   map< T , list<T>> adj;
 
    void addNode(T u){
      adj[u];
@@ -15,18 +15,13 @@ class graph{
    }
 
    void addEdge(T u , T v , bool direction){
-      if(adj.size()<2) {
-        cout<<"Graph has less then two Nodes !"<<endl;
-        return;
-      }
-
       adj[u].push_back(v);
 
       if(direction == 0){
-        adj[v].push_back(u);
+        adj[v].push_back(u);        
       }
    }
-
+   
    void printAdjList(){
      for(auto it : adj){
        cout<<it.first<<" -> ";
@@ -35,6 +30,33 @@ class graph{
        }cout<<endl;
      }
    }
+
+   
+vector<int> bfsTraversal(int n){
+    // Write your code here.
+    int visited[n]={0};
+    visited[0] = 1;
+
+    queue<int> q;
+    q.push(0);
+
+    vector<int> bfs;;
+
+    while(!q.empty()){
+        int node = q.front();
+        q.pop();
+        bfs.push_back(node);
+
+        for(auto val : adj[node]){
+            if(visited[val]==0){
+                q.push(val);
+                visited[val]=1;  
+            }
+        }
+    }
+    return bfs;    
+}
+
 };
 
 int main(){
@@ -76,3 +98,4 @@ int main(){
    }
    return 0;
 }
+
