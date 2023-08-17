@@ -32,27 +32,7 @@ class maxHeap{
        }
        arr[1]=arr[size];
        size--;
-
-       int i=1;
-       while(i<=size){
-          int largest = i;
-          int left = 2*i , right = 2*i+1;
-
-          if(left<=size && arr[largest]<arr[left]){
-           largest = left;
-          }
-          if(right<=size && arr[largest]<arr[right]){
-           largest = right;
-           }
-
-          if(largest != i){
-           swap(arr[i],arr[largest]);
-           i = largest;
-          }else{
-            return;
-          }
-       }
-
+       heapify(arr,size,1);   
     }
 
     void print(){
@@ -60,33 +40,37 @@ class maxHeap{
             cout<<arr[i]<<" ";
         }cout<<endl;
     }
+
+    
+    void heapify(int arry[] , int n  , int i){
+     int largest = i;
+     int left = 2*i , right = 2*i+1;
+
+     if(left<=n && arry[largest]<arry[left]){
+         largest = left;
+     }
+     if(right<=n && arry[largest]<arry[right]){
+         largest = right;
+     }
+
+     if(largest != i){
+         swap(arry[i],arry[largest]);
+         heapify(arry,n,largest);
+     }
+    }
+
+
+    void heapSort(int arry[] , int n){
+     int size = n;
+     while(size>1){
+         swap(arry[1],arry[size]);
+         size--;
+         heapify(arry,size,1);
+     }
+    }
 };
 
-void heapify(int arr[] , int n  , int i){
-    int largest = i;
-    int left = 2*i , right = 2*i+1;
 
-    if(left<=n && arr[largest]<arr[left]){
-        largest = left;
-    }
-    if(right<=n && arr[largest]<arr[right]){
-        largest = right;
-    }
-
-    if(largest != i){
-        swap(arr[i],arr[largest]);
-        heapify(arr,n,largest);
-    }
-}
-
-void heapSort(int arr[] , int n){
-    int size = n;
-    while(size>1){
-        swap(arr[1],arr[size]);
-        size--;
-        heapify(arr,size,1);
-    }
-}
 
 int main(){
     maxHeap mh;
@@ -117,7 +101,7 @@ int main(){
     int arr[8]={-1,5,20,15,30,10,35,25};
     int n=7;
     for(int i=n/2 ; i>0 ; i--){
-        heapify(arr,n,i);
+        mh.heapify(arr,n,i);
     }
     for(int i=1;i<=n;i++){
        cout<<arr[i]<<" ";
@@ -126,7 +110,7 @@ int main(){
 
 
     cout<<endl<<"heapify"<<endl;
-    heapSort(arr,n);
+    mh.heapSort(arr,n);
     for(int i=1;i<=n;i++){
        cout<<arr[i]<<" ";
     }    
